@@ -12,7 +12,7 @@ from flask import Flask, jsonify
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///hawaii.sqlite")
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -41,8 +41,9 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end>"
+        f"/api/v1.0/&ltStartDate&gt<br/>"
+        f"/api/v1.0/&ltStartDate&gt/&ltEndDate&gt<br/>"
+        f"<b>Use yyyy-mm-dd format for dates</b>"
     )
 
 
@@ -130,7 +131,6 @@ def calc_temps(start):
     
     return jsonify(temp_list)
 
-
 @app.route("/api/v1.0/<start>/<end>")
 
 def calc_temps_end(start, end):
@@ -154,8 +154,6 @@ def calc_temps_end(start, end):
     
     return jsonify(temp_list_end)
 
-
-#     return jsonify({"error": f"Character with real_name {real_name} not found."}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
